@@ -2,7 +2,10 @@ const express = require('express');
 
 const app = express();
 const bodyParser = require('body-parser');
+
 const userRouter = require('./routes/userRoute')
+const ressourceRouter = require('./routes/ressourceRoute') ;
+const authRouter = require('./routes/authRouter') ;
 
 
  // permet d'eviter les erreurs de cors et permet à l'api d'etre utilisé depuis n'imoorte quelle origine
@@ -19,8 +22,9 @@ app.use((req, res, next) => {
 app.use(bodyParser.json())
 
 
-//ROUTE User
+//ROUTE 
+app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
-
+app.use('/api/ressource', ressourceRouter)
 
 module.exports = app;
