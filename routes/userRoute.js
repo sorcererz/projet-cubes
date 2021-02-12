@@ -2,9 +2,12 @@ const express = require('express');
 const UserCtrl = require('../controllers/userController')
 const router = express.Router();
 
+// middleware permettant de vérifier si un user est bien authentifié 
+const Gard = require('../middleware/gard') 
 
-router.get('/all', UserCtrl.getUsers ); 
-router.get('/:id', UserCtrl.getOneUser); 
+
+router.get('/:idUser/all',Gard.authGard, Gard.moderateurGard,  UserCtrl.getUsers ); 
+router.get('/:idUser/:idSearch', Gard.authGard, UserCtrl.getOneUser); 
 //router.post('/create', UserCtrl.createUser); 
 
 

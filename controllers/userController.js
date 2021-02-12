@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt')
 const clUser = require('../models/userModel')
+const jwt = require('jsonwebtoken')
+
 
 class UserController {
     static createUser = (req, res, next) => {
@@ -45,6 +47,7 @@ class UserController {
         
     }
     static getUsers = (req, res, next) => {
+        console.log("getusers");
         clUser.getUser()
         .then((result )=> {
             return res.status(200).json({users : result})
@@ -57,7 +60,7 @@ class UserController {
 
     }
     static getOneUser = (req, res, next) => {
-        
+        return res.status(200).json({message : "1 user"})
     }
     static deleteUser = (req, res, next) => {
         return res.status(200).json({message : "Supression user"})
@@ -79,7 +82,16 @@ class UserController {
                if (!ok ) {
                 return res.status(401).json({error: "L'association de l'email et du mdp est invalide"})
                }
-               return res.status(200).json({user_id : user[0].id_users, token: "TOKEN"})
+               return res.status(200).json(
+                   {
+                       user_id : user[0].id_users, 
+                       token: jwt.sign(
+                           {user_id: user[0].id_users, role: user[0].id_roles},
+                           "RANDOM_TOKEN_SECRET",
+                           {expiresIn: '24h'}
+                           )
+                    }
+                )
            } )
 
            
