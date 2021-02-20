@@ -38,7 +38,7 @@ class User {
         return new Promise((resolve, reject) => {
 
             //req préparé 
-            let req = "SELECT id_users, password, email FROM users WHERE email = ?"
+            let req = "SELECT id_users, password, email, id_roles FROM users WHERE email = ?"
 
             let tab = [email]
 
