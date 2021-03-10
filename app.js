@@ -7,6 +7,7 @@ const userRouter = require('./routes/userRoute')
 const ressourceRouter = require('./routes/ressourceRoute') ;
 const authRouter = require('./routes/authRouter') ;
 const progressionRouter = require('./routes/progressionRouter');
+const echangeRouter = require('./routes/echangeRouter');
 
 
  // permet d'eviter les erreurs de cors et permet à l'api d'etre utilisé depuis n'imoorte quelle origine
@@ -28,5 +29,6 @@ app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
 app.use('/api/ressource', ressourceRouter)
 app.use('/api/user/progression', progressionRouter)
+app.use('/api/echanges', echangeRouter)
 
 module.exports = app;
