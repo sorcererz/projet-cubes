@@ -1,9 +1,9 @@
 const bcrypt = require('bcrypt')
-const clUser = require('../models/userModel')
+const clAdmin = require('../models/adminModel')
 const jwt = require('jsonwebtoken')
 
 
-class UserController {
+class AdminController {
     static createUser = (req, res, next) => {
 
         // crypt mdp avant insertion bdd
@@ -25,7 +25,7 @@ class UserController {
                     id_social_status: req.body.id_social_status
                 }
 
-                clUser.create(user)
+                clAdmin.create(user)
                     .then(() => {
                         res.status(201).json({
                             message: 'utilisateur créee'
@@ -39,16 +39,12 @@ class UserController {
             })
             .catch(err => res.status(500).json({ err }))
 
-
-
-
     }
-    static updateUser = (req, res, next) => {
-        
-    }
-    static getUsers = (req, res, next) => {
-        console.log("getusers");
-        clUser.getUser()
+
+
+    static getAmdin = (req, res, next) => {
+        console.log("getAmdin");
+        clAdmin.getAmdin()
         .then((result )=> {
             return res.status(200).json({users : result})
         })
@@ -59,18 +55,16 @@ class UserController {
         })
 
     }
-    static getOneUser = (req, res, next) => {
+    static getOneAdmin = (req, res, next) => {
         return res.status(200).json({message : "1 user"})
     }
-    static deleteUser = (req, res, next) => {
+    static deletAdmin = (req, res, next) => {
         return res.status(200).json({message : "Supression user"})
     }
-    static getRessources = (req, res, next) => {
-        return res.status(200).json({ressource : "Ressource"})
-    }
+
 
     static login = (req, res, next) => {
-        clUser.login(req.body.email)
+        clAdmin.login(req.body.email)
         .then( user => {
            if (!user) {
                return res.status(401).json({error: "L'association de  l'email et du mdp est invalide"})
@@ -96,15 +90,37 @@ class UserController {
 
            
         })
-        .catch(err => {
-            return  res.status(400).json({error: err})
-        })
+        .catch(err => {  res.status(400).json({error: err}) })
+    }
+
+    static setRole = (req, res, next) => {
+        clAdmin.setRole(req.body.userId, req.body.idRole)
+        .then(result => res.status(200).json(result))
+        .catch(err => res.status(400).json({error: err}) )
+    }
+
+
+    static setStatusRresource = (req, res, next) => {
+        clAdmin.setStatusRresource(req.body.ressId, req.body.supend)
+        .then(result => res.status(200).json(result))
+        .catch(err => res.status(400).json({error: err}) )
+    }
+
+    static addCategory = (req, res, next) => {
+        clAdmin.addCategory(req.body.lib)
+        .then(result => res.status(200).json(result))
+        .catch(err => res.status(400).json({error: err}) )
     }
 
     
+    static setUserAccountStatus = (req, res, next) => {
+        clAdmin.setUserAccountStatus(req.body.userId, req.body.activated)
+        .then(result => res.status(200).json(result))
+        .catch(err => res.status(400).json({error: err}) )
+    }
 
 
 
 }
 
-module.exports = UserController
+module.exports = AdminController
