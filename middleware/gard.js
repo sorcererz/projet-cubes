@@ -11,17 +11,19 @@ class Guard {
       const token = req.headers.authorization.split(' ')[1];
       const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
       const userId = decodedToken.user_id;
-      console.log('req', req.params );
-      if (req.params.userId && req.params.userId != userId) {
+      console.log('authGard userid', userId);
+      console.log('req.params.userId', req.params.idUser );
+      if (req.params.idUser != userId) {
         console.log('authGard', 'err 1' );
         res.status(401).json({
           error: 'Invalid user ID'
         });
       } else {
+        console.log('authGard', 'ok');
         next();
       }
-    } catch {
-      console.log('authGard', 'err 2' );
+    } catch (e) {
+      console.log('authGard', 'err 2', e );
       res.status(401).json({
         error:'Invalid request!'
       });
@@ -44,7 +46,8 @@ class Guard {
       } else {
         next();
       }
-    } catch {
+    } catch (e) {
+      console.log('err 2', e);
       res.status(401).json({
         error: 'Invalid request!'
       });
@@ -67,7 +70,8 @@ class Guard {
       } else {
         next();
       }
-    } catch {
+    } catch (e) {
+      console.log('err 2', e);
       res.status(401).json({
         error: new Error('Invalid request!')
       });
@@ -91,8 +95,8 @@ class Guard {
       } else {
         next();
       }
-    } catch {
-      console.log('err 2');
+    } catch (e) {
+      console.log('err 2', e);
       res.status(401).json({
         error: 'Invalid request!'
       });

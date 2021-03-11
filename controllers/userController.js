@@ -76,6 +76,8 @@ class UserController {
                return res.status(401).json({error: "L'association de  l'email et du mdp est invalide"})
            }
 
+           console.log("user", user[0]);
+
          
            bcrypt.compare(req.body.password, user[0].password)
            .then( ok =>{
@@ -97,6 +99,7 @@ class UserController {
            
         })
         .catch(err => {
+            console.log("login erreur", err);
             return  res.status(400).json({error: err})
         })
     }

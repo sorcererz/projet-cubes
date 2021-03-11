@@ -43,7 +43,7 @@ class Admin {
 
             if (!email) {
                 console.log('login', "l'email ne peut etre vide")
-                reject("l'email ne peut etre vide")
+                return reject("l'email ne peut etre vide")
             }
 
             //req préparé 
@@ -77,7 +77,7 @@ class Admin {
 
             if (!user) {
                 console.log('create', "l'objet user ne peut etre vide")
-                reject("l'objet user ne peut etre vide")
+                return reject("l'objet user ne peut etre vide")
             }
 
             // requete préparé
@@ -111,7 +111,7 @@ class Admin {
             
             if (!idUser || !idNewRole) {
                 console.log('setRole', "l'i de l'utilisateur ou le nouveau role de l'utilisateur ne peuvent être nul")
-                reject("L'id de la ressource ne peut être vide")
+                return reject("L'id de la ressource ne peut être vide")
             }
 
             // requete préparé
@@ -141,7 +141,7 @@ class Admin {
 
             if (!idRessource) {
                 console.log('setStatusRresource', "L'id de la ressource ne peut être vide")
-                reject("L'id de la ressource ne peut être vide")
+                return reject("L'id de la ressource ne peut être vide")
             }
             
             let status = supend === false ? 0 : 1 
@@ -172,10 +172,11 @@ class Admin {
     static addCategory(libCategory) {
 
         return new Promise((resolve, reject) => {
+
             
             if (!libCategory) {
                 console.log('addCategory', 'Le libellé ne peut être vide')
-                reject('Le libellé ne peut être vide')
+                return reject('Le libellé ne peut être vide')
             }
 
             // requete préparé

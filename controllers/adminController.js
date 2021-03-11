@@ -107,6 +107,7 @@ class AdminController {
     }
 
     static addCategory = (req, res, next) => {
+
         clAdmin.addCategory(req.body.lib)
         .then(result => res.status(200).json(result))
         .catch(err => res.status(400).json({error: err}) )
