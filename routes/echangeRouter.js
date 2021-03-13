@@ -10,7 +10,15 @@ const router = express.Router();
 router.post('/addComment', Gard.authGard, EchgCtrl.addComment);
 router.post('/moderateComment', Gard.authGard, Gard.moderateurGard, EchgCtrl.moderateComment);
 
-router.get('comments/:idRessource', EchgCtrl.getCommentsByIdRessource);
+router.get('/comments/:idRessource', EchgCtrl.getCommentsByIdRessource);
+
+router.post('/askFriend', Gard.authGard, EchgCtrl.askFriend);
+router.post('/block', Gard.authGard, EchgCtrl.blockById);
+
+// modification de la bdd pour que ces routes fonctionnent : ajouter INT id_users & INT id_target dans la table messages
+router.post('/messages/send',  EchgCtrl.sendPrivateMessage);
+router.get('/messages/:userId/:targetId',  EchgCtrl.getPrivateMessages);
+
 
 
 module.exports = router;

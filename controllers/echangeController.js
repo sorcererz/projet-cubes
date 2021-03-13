@@ -31,6 +31,34 @@ class EchangeController {
         })
     } // moderateComment
 
+    static askFriend = (req, res) => {
+        EchangeModel.addFriend(req.body.userId, req.body.friendId)
+        .then(result => {
+            return res.status(200).json({
+                message: 'requête ami envoyée'
+            });
+        })
+        .catch(err => {
+            return res.status(400).json({
+                error: err
+            });
+        });
+    } // askFriend
+
+    static blockById = (req, res) => {
+        EchangeModel.blockById(req.body.userId, req.body.blockId)
+        .then(result => {
+            return res.status(200).json({
+                message: 'personne bloquée'
+            });
+        })
+        .catch(err => {
+            return res.status(400).json({
+                error: err
+            });
+        });
+    } // blockById
+
     static getCommentsByIdRessource = (req, res) => {
         EchangeModel.getCommentsByIdRessource(req.params.idRessource)
         .then(result => {
@@ -44,6 +72,34 @@ class EchangeController {
             });
         })
     } // getCommentsByIdRessource
+
+    static sendPrivateMessage = (req, res) => {
+        EchangeModel.sendPrivateMessage(req.body.userId, req.body.targetId, req.body.content)
+        .then(result => {
+            return res.status(200).json({
+                message: result
+            });
+        })
+        .catch(err => {
+            return res.status(400).json({
+                error: err
+            });
+        });
+    } // sendPrivateMessage
+
+    static getPrivateMessages = (req, res) => {
+        EchangeModel.getPrivateMessages(req.params.userId, req.params.targetId)
+        .then(result => {
+            return res.status(200).json({
+                messages: result
+            });
+        })
+        .catch(err => {
+            return res.status(400).json({
+                error: err
+            });
+        })
+    } // getPrivateMessages
 }
 
 module.exports = EchangeController

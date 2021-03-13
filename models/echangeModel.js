@@ -40,9 +40,18 @@ class Echange {
         });
     } // moderateComment
 
+    static askFriend(userId, friendId) {
+        
+    } // askFriend
+
+    static blockById(userId, blockId) {
+
+    }
+
     static getCommentsByIdRessource(id) {
         return new Promise((resolve, reject) => {
-            let req = 'SELECT * FROM comments WHERE id_posts = ? AND status = 1 ORDER BY date_comment ASC';
+            let req = 'SELECT * FROM comments LEFT JOIN users ON users.id_users = comments.id_users ';
+                req+= 'WHERE comments.id_posts = ? AND comments.status = 1 ORDER BY comments.date_comment ASC';
 
             let params = [id];
             connexion.query(req, params, (err, result) => {
@@ -57,6 +66,48 @@ class Echange {
             });
         });
     } // getCommentsByIdRessource
+
+    static sendPrivateMessage(userId, targetId, content) {
+        return new Promise((resolve, reject) => {
+            let req = 'INSERT INTO messages SET id_users = ?, id_target = ?, content = ?';
+
+            let params = [userId, targetId, content];
+            connexion.query(req, params, (err, result) => {
+                if (err) {
+                    console.log('insert message erreur', err);
+                    reject(err);
+                }
+                else {
+                    console.log('insert message ok', result);
+                    resolve(result);
+                }
+            });
+        });
+    } // sendPrivateMessage
+
+    static getPrivateMessages(userId, targetId) {
+        return new Promise((resolve, reject) => {
+            let req = 'SELECT m.id_messages, m.content, authors.name as author_name, authors.firstname as author_firstname, ';
+                req+= 'targets.name as target_name, targets.firstname as target_firstname ';
+                req+= 'FROM messages m ';
+                req+= 'LEFT JOIN users as authors ON authors.id_users = m.id_users ';
+                req+= 'LEFT JOIN users as targets ON targets.id_users = m.id_target ';
+                req+= 'WHERE (m.id_users = ? AND m.id_target = ?) OR (m.id_target = ? AND m.id_users = ?) ';
+                req+= 'ORDER BY m.id_messages'
+
+            let params = [userId, targetId, userId, targetId];
+            connexion.query(req, params, (err, result) => {
+                if (err) {
+                    console.log('get messages erreur', err);
+                    reject(err);
+                }
+                else {
+                    console.log('get messages ok', result);
+                    resolve(result);
+                }
+            });
+        });
+    } // getPrivateMessages
 }
 
 
