@@ -37,7 +37,7 @@ class Guard {
       const userRole = decodedToken.role;
       const idRole = 4 // id super admin
 
-      if (idRole !== userRole) {
+      if (idRole >= userRole) {
         res.status(401).json({
           error: "Vous n'avez pas les droits nécéssaires pour faire cette action"
         });
@@ -60,7 +60,7 @@ class Guard {
       const userRole = decodedToken.role;
       const idRole = 3;  // id admin
 
-      if (idRole !== userRole) {
+      if (idRole >= userRole) {
         res.status(401).json({
           error: "Vous n'avez pas les droits nécéssaires pour faire cette action"
         });
@@ -83,7 +83,7 @@ class Guard {
       const userRole = decodedToken.role;
       const idRole = 2;  // id modéraateur
 
-      if (idRole !== userRole) {
+      if (idRole >= userRole) {
         console.log('err 1');
         res.status(401).json({
           error: "Vous n'avez pas les droits nécéssaires pour faire cette action"
