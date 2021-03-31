@@ -9,7 +9,8 @@ class Ressource {
         return new Promise((resolve, reject) => {
 
             //req préparé 
-            let req = "SELECT * FROM posts"
+            let req = "SELECT users.name, users.firstname, posts.* FROM posts"
+                req+= " INNER JOIN users ON posts.id_users = users.id_users "
             req += id != "" ? " WHERE id_posts = ?" : ""
 
             let tab = [id]

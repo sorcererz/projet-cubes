@@ -100,6 +100,20 @@ class EchangeController {
             });
         })
     } // getPrivateMessages
+
+    static getConversations = (req, res) => {
+        EchangeModel.getConversations(req.params.userId)
+        .then(result => {
+            return res.status(200).json({
+                conversations: result
+            });
+        })
+        .catch(err => {
+            return res.status(400).json({
+                error: err
+            });
+        })
+    } // getConversations
 }
 
 module.exports = EchangeController

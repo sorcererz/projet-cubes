@@ -8,12 +8,13 @@ class Guard {
   static authGard = (req, res, next) => {
     console.log('authGard');
     try {
+      console.log('in authGard', req.params.userId, req.headers.authorization);
       const token = req.headers.authorization.split(' ')[1];
       const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
       const userId = decodedToken.user_id;
       console.log('req', req.params );
       if (req.params.userId && req.params.userId != userId) {
-        console.log('authGard', 'err 1' );
+        console.log('authGard', 'err 1' , req.params.userId);
         res.status(401).json({
           error: 'Invalid user ID'
         });

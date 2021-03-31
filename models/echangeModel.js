@@ -108,6 +108,36 @@ class Echange {
             });
         });
     } // getPrivateMessages
+
+    static getConversations(userId) {
+        return new Promise((resolve, reject) => {
+            let req = `SELECT id, content, u.name, u.firstname 
+                       FROM (
+                            SELECT id_users as id, content, id_messages
+                            FROM messages 
+                            WHERE messages.id_target = 6
+                            UNION ALL 
+                            SELECT id_target as id, content, id_messages
+                            FROM messages 
+                            WHERE messages.id_users = 6 
+                            ORDER BY id_messages DESC
+                       ) m
+                       INNER JOIN users u ON u.id_users = m.id
+                       GROUP BY id`;
+
+            let params = [userId, userId];
+            connexion.query(req, params, (err, result) => {
+                if (err) {
+                    console.log('get contacts : erreur -> ', err);
+                    reject(err);
+                }
+                else {
+                    console.log('get contacts : ok ->', result);
+                    resolve(result);
+                }
+            });
+        }); // new Promise
+    } // getConversations
 }
 
 
