@@ -44,7 +44,29 @@ class UserController {
 
     }
     static updateUser = (req, res, next) => {
-        
+        const user = {
+            name: req.body.name,
+            firstname: req.body.firstname,
+            email: req.body.email,
+            birhtdate: req.body.birhtdate,
+            city: req.body.city,
+            postcode: req.body.postcode,
+            id_users: req.params.idUser
+        }
+
+        console.log("UPDATE USER USER", user);
+
+        clUser.update(user)
+            .then(() => {
+                res.status(201).json({
+                    message: 'utilisateur mis à jour'
+                })
+            })
+            .catch(err => {
+                res.status(400).json({
+                    error: err
+                })
+            })
     }
     static getUsers = (req, res, next) => {
         console.log("getusers");
