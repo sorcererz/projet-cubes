@@ -60,7 +60,15 @@ class UserController {
 
     }
     static getOneUser = (req, res, next) => {
-        return res.status(200).json({message : "1 user"})
+        clUser.getUser(req.params.idSearch)
+        .then((result )=> {
+            return res.status(200).json({users : result})
+        })
+        .catch(err => {
+            return  res.status(400).json({
+                error: err
+              })
+        })
     }
     static deleteUser = (req, res, next) => {
         return res.status(200).json({message : "Supression user"})

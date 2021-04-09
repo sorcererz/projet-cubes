@@ -9,7 +9,7 @@ class User {
 
             //req préparé 
             let req = "SELECT * FROM users"
-            req+= id != "" ? " WHERE id_users = '?'" : ""
+            req+= id != "" ? " WHERE id_users = ?" : ""
 
             let tab = [id]
 
