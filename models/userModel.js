@@ -9,7 +9,7 @@ class User {
 
             //req préparé 
             let req = "SELECT * FROM users"
-            req+= id != "" ? " WHERE id_users = '?'" : ""
+            req+= id != "" ? " WHERE id_users = ?" : ""
 
             let tab = [id]
 
@@ -82,6 +82,35 @@ class User {
                 }else {
                     resolve(result) // si tout ce passe bien on renvoie le resulat sql 
                     console.log('INSERT USER ok')
+                }
+
+
+
+            })
+        })
+    }
+
+
+    
+    static update(user) {
+        return new Promise((resolve, reject) => {
+            // requete préparé
+            let req = "UPDATE users SET name = ? , firstname = ? , email = ? , birthdate = ? , city= ? ,postcode= ?"
+            req += ` WHERE id_users = ?`
+
+            // tab d'insertion dans la req préparée
+            let tab = [user.name, user.firstname, user.email, user.birthdate, user.city, user.postcode, user.id_users]
+
+            connexion.query(req, tab, (err, result) => {
+
+                // si erreur on renvoie l'erreur 
+                if (err) {
+                    console.log('UPDATE USER erreur', err);
+                    reject(err)
+                    
+                }else {
+                    resolve(result) // si tout ce passe bien on renvoie le resulat sql 
+                    console.log('UPDATE USER ok')
                 }
 
 
