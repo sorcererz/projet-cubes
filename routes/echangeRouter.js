@@ -16,7 +16,7 @@ router.post('/askFriend', Gard.authGard, EchgCtrl.askFriend);
 router.post('/block', Gard.authGard, EchgCtrl.blockById);
 
 // modification de la bdd pour que ces routes fonctionnent : ajouter INT id_users & INT id_target dans la table messages
-router.post('/messages/send', Gard.authGard, EchgCtrl.sendPrivateMessage);
+router.post('/messages/:userId/send', Gard.authGard, EchgCtrl.sendPrivateMessage);
 router.get('/messages/:userId/:targetId', Gard.authGard, EchgCtrl.getPrivateMessages);
 
 router.get('/conversations/:userId', Gard.authGard, EchgCtrl.getConversations);

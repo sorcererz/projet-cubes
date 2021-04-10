@@ -74,6 +74,7 @@ class EchangeController {
     } // getCommentsByIdRessource
 
     static sendPrivateMessage = (req, res) => {
+        console.log('req.body ', req);
         EchangeModel.sendPrivateMessage(req.body.userId, req.body.targetId, req.body.content)
         .then(result => {
             return res.status(200).json({

@@ -10,11 +10,7 @@ class Ressource {
             console.log("getRessource");
             //req préparé 
             let req = "SELECT users.name, users.firstname, posts.* FROM posts"
-<<<<<<< HEAD
-                req+= " INNER JOIN users ON posts.id_users = users.id_users "
-=======
             req+= " INNER JOIN users ON posts.id_users = users.id_users "
->>>>>>> fad30efedfa5e28c976c9fe6c239acc9d6193675
             req += id != "" ? " WHERE id_posts = ?" : ""
 
             let tab = [id]
@@ -173,7 +169,8 @@ class Ressource {
     static getRessourceNew() { //get tous les posts ordonnés par les plus nouveaux
         return new Promise((resolve, reject) => {
             //req préparé 
-            let req = "SELECT * FROM cube.posts ORDER BY post_date DESC;"
+            let req = "SELECT users.name, users.firstname, posts.* FROM posts"
+            req+= " INNER JOIN users ON posts.id_users = users.id_users ORDER BY post_date DESC"
 
             connexion.query(req, (err, result) => {// si erreur on renvoie l'erreur
                 if (err) {
@@ -191,7 +188,8 @@ class Ressource {
     static getRessourceOld() { //get tous les posts ordonnés par les plus vieux
         return new Promise((resolve, reject) => {
             //req préparé 
-            let req = "SELECT * FROM cube.posts ORDER BY post_date ASC;"
+            let req = "SELECT users.name, users.firstname, posts.* FROM posts"
+            req+= " INNER JOIN users ON posts.id_users = users.id_users ORDER BY post_date ASC"
 
             connexion.query(req, (err, result) => {// si erreur on renvoie l'erreur
                 if (err) {

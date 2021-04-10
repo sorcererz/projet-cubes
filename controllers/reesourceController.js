@@ -59,6 +59,7 @@ class RessourceController {
     }
 
     static getRessource = (req, res, next) => {
+        console.log('get ressource controller');
         clRessource.getRessource()
             .then((result) => {
                 return res.status(200).json({ ressources: result })
@@ -72,6 +73,7 @@ class RessourceController {
     }
 
     static getOneRessource = (req, res, next) => {
+        console.log('get one ressource controller');
         clRessource.getRessource(req.params.id)
             .then((result) => {
                 if (!result.length || !result) {
@@ -146,6 +148,7 @@ class RessourceController {
     }
 
     static getRessourceNew = (req, res, next) => {
+        console.log('get ressource new controller');
         clRessource.getRessourceNew()
             .then((result) => {
                 if (!result.length || !result) {
@@ -161,6 +164,7 @@ class RessourceController {
     }
 
     static getRessourceOld = (req, res, next) => {
+        console.log('get ressource old controller');
         clRessource.getRessourceOld()
             .then((result) => {
                 if (!result.length || !result) {
