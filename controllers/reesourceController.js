@@ -4,11 +4,11 @@ class RessourceController {
     static createRessource = (req, res, next) => {
         const ressource = {
             title: req.body.title,
-            post_date: req.body.post_date,
+            post_date: Date.now(),
             content: req.body.content,
             path: req.body.path,
-            edition_date: req.body.edition_date,
-            status: req.body.status,
+            edition_date: Date.now(),
+            status: 1,
             visibility: req.body.visibility,
             id_users: req.body.id_users
         }
@@ -32,14 +32,12 @@ class RessourceController {
 
     static updateRessource = (req, res, next) => {
         const ressource = {
+            id_posts:  req.body.id_posts,
             title: req.body.title,
-            post_date: req.body.post_date,
             content: req.body.content,
             path: req.body.path,
-            edition_date: req.body.edition_date,
-            status: req.body.status,
-            visibility: req.body.visibility,
-            id_users: req.body.id_users
+            edition_date: Date.now(),
+            visibility: req.body.visibility
         }
 
 

@@ -8,8 +8,8 @@ const gard = require('../middleware/gard')
 
 router.get('/all', rscCtrl.getRessource);
 router.post('/create', rscCtrl.createRessource);
-router.post('/update', rscCtrl.createRessource);
-router.post('/delete', rscCtrl.createRessource);
+router.post('/update', rscCtrl.updateRessource);
+router.delete('/delete', rscCtrl.deleteRessource);
 router.get('/user/:id', rscCtrl.getRessourceUser);
 router.get('/category/:id', rscCtrl.getRessourceCategory);
 router.get('/restreint', rscCtrl.getRessourceRestreinte);

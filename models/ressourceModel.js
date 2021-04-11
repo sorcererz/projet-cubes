@@ -84,22 +84,22 @@ class Ressource {
     static update(ressource, id) { //Supprime le post avec l'id spécifié
         return new Promise((resolve, reject) => {
             // requete préparé
-            let req = 'UPDATE posts SET title = ?, post_date = ?, content = ?, path = ?, edition_date = ?, status = ?,'
-            req += 'visibility = ?, id_users= ? WHERE id_posts = ?'
+            let req = 'UPDATE posts SET title = ?, content = ?, path = ?, edition_date = ?, status = ? '
+            req += 'WHERE id_posts = ?'
 
             // tab d'insertion dans la req préparée
-            let tab = [ressource.title, ressource.post_date, ressource.content, ressource.path, ressource.edition_date, ressource.social_status, ressource.visibility, ressource.id_users, id]
+            let tab = [ressource.title, ressource.content, ressource.path, ressource.edition_date, ressource.status, id]
 
             connexion.query(req, tab, (err, result) => {
 
                 // si erreur on renvoie l'erreur 
                 if (err) {
-                    console.log('INSERT Ressource erreur', err);
+                    console.log('Update Ressource erreur', err);
                     reject(err)
 
                 } else {
                     resolve(result) // si tout ce passe bien on renvoie le resulat sql 
-                    console.log('INSERT Ressource ok')
+                    console.log('Update Ressource ok')
                 }
 
 
