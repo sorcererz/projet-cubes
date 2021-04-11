@@ -88,7 +88,7 @@ class Echange {
     static getPrivateMessages(userId, targetId) {
         return new Promise((resolve, reject) => {
             let req = 'SELECT m.id_messages, m.content, authors.name as author_name, authors.firstname as author_firstname, ';
-                req+= 'targets.name as target_name, targets.firstname as target_firstname ';
+                req+= 'targets.name as target_name, targets.firstname as target_firstname, authors.id_users as author_id ';
                 req+= 'FROM messages m ';
                 req+= 'LEFT JOIN users as authors ON authors.id_users = m.id_users ';
                 req+= 'LEFT JOIN users as targets ON targets.id_users = m.id_target ';
