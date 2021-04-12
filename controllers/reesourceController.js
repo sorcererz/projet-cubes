@@ -2,12 +2,15 @@ const clRessource = require('../models/ressourceModel')
 
 class RessourceController {
     static createRessource = (req, res, next) => {
+        const timeElapsed = Date.now();
+        const today = new Date(timeElapsed);
+
         const ressource = {
             title: req.body.title,
-            post_date: Date.now(),
+            post_date:  today.toISOString(), 
             content: req.body.content,
             path: req.body.path,
-            edition_date: Date.now(),
+            edition_date: today.toISOString(),
             status: 1,
             visibility: req.body.visibility,
             id_users: req.body.id_users
@@ -31,12 +34,15 @@ class RessourceController {
     }
 
     static updateRessource = (req, res, next) => {
+        const timeElapsed = Date.now();
+        const today = new Date(timeElapsed);
+
         const ressource = {
             id_posts:  req.body.id_posts,
             title: req.body.title,
             content: req.body.content,
             path: req.body.path,
-            edition_date: Date.now(),
+            edition_date: today.toISOString(),
             visibility: req.body.visibility
         }
 
